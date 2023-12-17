@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <a href="{% url 'train_reg' %}">Train</a>
+    <a href="{% url 'eda_reg' %}">EDA Regression</a>
+    <a href="{% url 'reg_add' %}">Add Data</a>
+    <a href="{% url 'signout' %}">Logout</a>
     <form action="/model_train_reg/" method="POST" class="tform">
         {%csrf_token %}
 
