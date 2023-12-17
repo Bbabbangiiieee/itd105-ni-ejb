@@ -1,0 +1,45 @@
+<div id="main-wrapper" class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="card border-0">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6 d-none d-lg-inline-block">
+                            <div class="account-block rounded-left">
+                                <div class="overlay rounded-left"></div>
+                                <div class="account-testimonial">
+                                    <h4 class="text-white mb-4">ITD105 - BIG DATA ANALYTICS</h4>
+                                    <p class="lead text-white">Case Study #2 Web App integrating the ML Model</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="mb-5">
+                                    <h3 class="h4 font-weight-bold text-theme">Login</h3>
+                                </div>
+                                <h6 class="h5 mb-0">Welcome! </h6>
+                                <p class="text-muted mt-2 mb-5">Enter your email address and password to access the admin panel.</p>
+                                <form action="/signin/" method="POST" class="tform">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="email" class="floating-label">Email</label>
+                                        <input type="text" name="email" id="email" placeholder="Email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <label for="password" class="floating-label">Password</label>
+                                        <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-theme">Login</button>
+                                </form>
+                                <br>
+                                <p>Don't have an account? <a href="{% url 'register' %}">Signup</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
