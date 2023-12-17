@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Datat</title>
+</head>
+<body>
+    <a href="{% url 'train_class' %}">Train</a>
+    <a href="{% url 'eda' %}">EDA Classification</a>
+    <a href="{% url 'class_add' %}">Add Data</a>
+    <a href="{% url 'signout' %}">Logout</a>
+    <form action="/add_class/" method="POST" class="tform">
+        {%csrf_token %}
+
+        <label for="bi_rads" class="floating-label">BI_RADS</label>
+        <input type="number" name="bi_rads" id="bi_rads" placeholder="Enter a Number" required>
+        <label for="age" class="floating-label">Age</label>
+        <input type="number" name="age" id="age" placeholder="Enter a Number" required>
+        <label for="shape" class="floating-label">Shape</label>
+        <input type="number" name="shape" id="shape" placeholder="Enter a Number" required>
+        <label for="margin" class="floating-label">Margin</label>
+        <input type="number" name="margin" id="margin" placeholder="Enter a Number" required>
+        <label for="density" class="floating-label">Density</label>
+        <input type="number" name="density" id="density" placeholder="Enter a Number" required>
+        <label for="severity" class="floating-label">Severity</label>
+        <input type="number" name="severity" id="severity" placeholder="Enter a Number" required>
+        <button class="submit btn-eda">Submit</button>
+
+    </form>
+
+    {{ message }}
+</body>
+</html>

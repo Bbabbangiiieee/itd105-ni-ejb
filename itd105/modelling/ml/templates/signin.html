@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/signin/" method="POST" class="tform">
+        {%csrf_token %}
+            <label for="email" class="floating-label">Email</label>
+            <input type="text" name="email" id="email" placeholder="Email" required>
+            <label for="password" class="floating-label">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <button>Login</button>
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Signup</a></p>
+</body>
+</html>

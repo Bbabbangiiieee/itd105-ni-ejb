@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <a href="{% url 'train_reg' %}">Train</a>
+    <a href="{% url 'eda' %}">EDA Classification</a>
+    <a href="{% url 'reg_add' %}">Add Data</a>
+    <a href="{% url 'signout' %}">Logout</a>
+    <div id="data-container"></div>
+    <!-- Pie Chart -->
+    <div>
+        {{ pie_chart_html|safe }}
+    </div>
+    <div>
+        {{ bar_chart_html|safe }}
+    </div>
+    <div>
+        {{ histogram_html|safe }}
+    </div>
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        // Display the data in a table
+        var tableHtml = '<table id="data-table" border="1">';
+        tableHtml += '<thead><tr>';
+
+        // Add column headers
+        {% for colName in df_head_json.columns %}
+            tableHtml += '<th>{{ colName }}</th>';
+        {% endfor %}
+
+        tableHtml += '</tr></thead>';
+        tableHtml += '<tbody>';
+
+        // Add rows and data
+        {% for row in df_head_json.data %}
+            tableHtml += '<tr>';
+            {% for cell in row %}
+                tableHtml += '<td>{{ cell }}</td>';
+            {% endfor %}
+            tableHtml += '</tr>';
+        {% endfor %}
+
+        tableHtml += '</tbody></table>';
+
+        // Append the table to the data-container div
+        $('#data-container').html(tableHtml);
+
+        // Initialize DataTables
+        $('#data-table').DataTable({
+            "aLengthMenu": [[10, 25, 50 - 1], [10, 25, 50, "All"]],
+            "iDisplayLength": 10
+        });
+    });
+</script>

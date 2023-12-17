@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train</title>
+</head>
+
+<body>
+    <form action="/model_train_reg/" method="POST" class="tform">
+        {%csrf_token %}
+
+        <label for="n_estimators" class="floating-label">N Estimators</label>
+        <input type="number" name="n_estimators" id="n_estimators" placeholder="Enter a Whole Number" required>
+        <label for="min_samples_split" class="floating-label">Minimum Sample Split</label>
+        <input type="number" name="min_samples_split" id="min_samples_split" placeholder="Enter a Whole Number"
+            required>
+        <label for="min_samples_leaf" class="floating-label">Maximum Sample Leaf</label>
+        <input type="number" name="min_samples_leaf" id="min_samples_leaf" placeholder="Enter a Whole Number" required>
+        <button class="submit btn-eda">Train</button>
+
+        
+    </form>
+    <p>Mean Absolute Error: {{ mae }}</p>
+
+
+    <form action="/predict_reg/" method="POST" class="tform">
+        {%csrf_token %}
+
+        <label for="age" class="floating-label">Age</label>
+        <input type="number" name="age" id="age" placeholder="Enter a Number" required>
+        <label for="sex" class="floating-label">Sex</label>
+        <select type="number" name="sex" id="sex" placeholder="Select Sex" required>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+        <label for="bmi" class="floating-label">BMI</label>
+        <input type="number" step="any" name="bmi" id="bmi" placeholder="Enter a Number" required>
+        <label for="children" class="floating-label">Children</label>
+        <input type="number" name="children" id="children" placeholder="Enter a Number" required>
+        <label for="smoker" class="floating-label">Smoker</label>
+        <select type="number" name="smoker" id="smoker"required>
+            <option>Are you a Smoker?</option>
+            <option value="0">Yes</option>
+            <option value="1">No</option>
+        </select>
+        <label for="region" class="floating-label">Region</label>
+        <select type="number" step="any" name="region" id="region"required>
+            <option>Select Region</option>
+            <option value="0">Southeast</option>
+            <option value="1">Southwest</option>
+            <option value="2">Northeast</option>
+            <option value="3">Northwest</option>
+        </select>
+        <button class="submit btn-eda">Submit</button>
+
+    </form>
+
+    <p>Prediction: {{ prediction }}</p>
+</body>
+
+</html>
