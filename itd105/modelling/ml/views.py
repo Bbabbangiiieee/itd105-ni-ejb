@@ -252,7 +252,7 @@ def model_train_class(request):
         Y_pred = model.predict(X_test)
 
         # Specify the model file path
-        model_directory = 'C:\\Users\\User\\Documents\\GitHub\\itd105-ni-ejb\\itd105\\modelling'
+        model_directory = 'C:\\Users\\Acer\\Desktop\\earyl\\itd105\\modelling'
         os.makedirs(model_directory, exist_ok=True)  # Create the directory if it doesn't exist
         model_filename = os.path.join(model_directory, 'model_class.joblib')
 

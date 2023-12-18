@@ -25,49 +25,55 @@
 
 </head>
 <style>
-    body{
-        margin-top:20px;
+    body {
+        margin-top: 20px;
         background: #f6f9fc;
-        }
-        .account-block .overlay {
-            -webkit-box-flex: 1;
-            -ms-flex: 1;
-            flex: 1;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            }
-            .account-block .account-testimonial {
-            text-align: center;
-            color: #fff;
-            position: absolute;
-            margin: 0 auto;
-            padding: 0 1.75rem;
-            bottom: 3rem;
-            left: 0;
-            right: 0;
-            }
-            
-            .text-theme {
-            color: #5369f8 !important;
-            }
-            
-            .btn-theme {
-            background-color: #5369f8;
-            border-color: #5369f8;
-            color: #fff;
-            }
+    }
 
-            .btn-theme:hover {
-                background-color: #3cb371; /* Green color on hover */
-                color: #fff; /* Text color on hover */
-                font-weight: bold; /* Making the text bold on hover */
-            }
+    .account-block .overlay {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .account-block .account-testimonial {
+        text-align: center;
+        color: #fff;
+        position: absolute;
+        margin: 0 auto;
+        padding: 0 1.75rem;
+        bottom: 3rem;
+        left: 0;
+        right: 0;
+    }
+
+    .text-theme {
+        color: #5369f8 !important;
+    }
+
+    .btn-theme {
+        background-color: #5369f8;
+        border-color: #5369f8;
+        color: #fff;
+    }
+
+    .btn-theme:hover {
+        background-color: #3cb371;
+        /* Green color on hover */
+        color: #fff;
+        /* Text color on hover */
+        font-weight: bold;
+        /* Making the text bold on hover */
+    }
 </style>
-<body id="page-top">
+
+<body style="padding-top: 0% !important; margin-top: 0% !important;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -139,7 +145,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -155,7 +161,7 @@
                 </div>
             </li>
 
-        
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -180,7 +186,7 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <div class="topbar-divider d-none d-sm-block"></div>
-                            <!-- Dropdown - User Information -->  
+                        <!-- Dropdown - User Information -->
                         </li>
                     </ul>
                 </nav>
@@ -189,10 +195,10 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Classification Train and Predict</h1>                      
+                        <h1 class="h3 mb-0 text-gray-800">Classification Train and Predict</h1>
                     </div>
                     <!-- Content Row -->
-                   
+
                     <!-- Content Row -->
 
                     <div class="row">
@@ -215,23 +221,106 @@
                                             <form action="/model_train_class/" method="POST" class="tform">
                                                 {%csrf_token %}
                                                 <div class="form-group">
-                                                <label for="max_depth" class="floating-label">Max Depth</label>
-                                                <input type="number" name="max_depth" id="max_depth" placeholder="Enter a Whole Number" class="form-control" required>
+                                                    <label for="max_depth" class="floating-label">Max Depth</label>
+                                                    <input type="number" name="max_depth" id="max_depth"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                <label for="min_samples_split" class="floating-label">Minimum Sample Split</label>
-                                                <input type="number" name="min_samples_split" id="min_samples_split" placeholder="Enter a Whole Number" class="form-control"
-                                                    required>
+                                                    <label for="min_samples_split" class="floating-label">Minimum Sample
+                                                        Split</label>
+                                                    <input type="number" name="min_samples_split" id="min_samples_split"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                <label for="min_samples_leaf" class="floating-label">Maximum Sample Leaf</label>
-                                                <input type="number" name="min_samples_leaf" id="min_samples_leaf" placeholder="Enter a Whole Number" class="form-control" required>
+                                                    <label for="min_samples_leaf" class="floating-label">Maximum Sample
+                                                        Leaf</label>
+                                                    <input type="number" name="min_samples_leaf" id="min_samples_leaf"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
                                                 </div>
                                                 <button type="submit" class="btn btn-theme">Train</button>
-                                        
-                                         
+
+
                                             </form>
-                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Result
+                                    </h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body d-flex align-items-center justify-content-center"
+                                    style="height: 336px !important; justify-content: center !important; align-items: center !important;">
+                                    <div style="height: 100% !important; padding: 0% !important;">
+                                        <div><br><br><br>
+                                            <p
+                                                style="font-size: 20px; font-weight: bold; color: black; margin: auto !important; text-align: left;">
+                                                Accuracy: </p>
+                                            <p style="font-size: 30px; color: black; text-align: center;"><strong>{{ accuracy }}</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Train form
+                                    </h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area" style="height:100% !important;">
+                                        <!-- Line Chart -->
+                                        <div style="width: 100% !important;">
+                                            <form action="/model_train_class/" method="POST" class="tform">
+                                                {%csrf_token %}
+                                                <div class="form-group">
+                                                    <label for="max_depth" class="floating-label">Max Depth</label>
+                                                    <input type="number" name="max_depth" id="max_depth"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="min_samples_split" class="floating-label">Minimum Sample
+                                                        Split</label>
+                                                    <input type="number" name="min_samples_split" id="min_samples_split"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="min_samples_leaf" class="floating-label">Maximum Sample
+                                                        Leaf</label>
+                                                    <input type="number" name="min_samples_leaf" id="min_samples_leaf"
+                                                        placeholder="Enter a Whole Number" class="form-control"
+                                                        required>
+                                                </div>
+                                                <button type="submit" class="btn btn-theme">Train</button>
+
+
+                                            </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -258,91 +347,27 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">
-                                        Train form
-                                    </h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area" style="height:100% !important;">
-                                        <!-- Line Chart -->
-                                        <div style="width: 100% !important;">
-                                            <form action="/model_train_class/" method="POST" class="tform">
-                                                {%csrf_token %}
-                                                <div class="form-group">
-                                                <label for="max_depth" class="floating-label">Max Depth</label>
-                                                <input type="number" name="max_depth" id="max_depth" placeholder="Enter a Whole Number" class="form-control" required>
-                                                </div>
-                                                <div class="form-group">
-                                                <label for="min_samples_split" class="floating-label">Minimum Sample Split</label>
-                                                <input type="number" name="min_samples_split" id="min_samples_split" placeholder="Enter a Whole Number" class="form-control"
-                                                    required>
-                                                </div>
-                                                <div class="form-group">
-                                                <label for="min_samples_leaf" class="floating-label">Maximum Sample Leaf</label>
-                                                <input type="number" name="min_samples_leaf" id="min_samples_leaf" placeholder="Enter a Whole Number" class="form-control" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-theme">Train</button>
-                                        
-                                         
-                                            </form>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">
-                                        Result
-                                    </h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div style="height: 100% !important; padding:0% !important;">
-                                        <div>
-                                            <p>Accuracy: {{ accuracy }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                    
-
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
 
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                        </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Content Column -->
+                    <div class="col-lg-6 mb-4">
+                    </div>
+                    <div class="col-lg-6 mb-4">
                     </div>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
-
+            <!-- /.container-fluid -->
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -390,6 +415,7 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
+
 </html>
 
 <script>
@@ -400,7 +426,7 @@
 
         // Add column headers
         {% for colName in df_head_json.columns %}
-            tableHtml += '<th>{{ colName }}</th>';
+        tableHtml += '<th>{{ colName }}</th>';
         {% endfor %}
 
         tableHtml += '</tr></thead>';
@@ -408,11 +434,11 @@
 
         // Add rows and data
         {% for row in df_head_json.data %}
-            tableHtml += '<tr>';
-            {% for cell in row %}
-                tableHtml += '<td>{{ cell }}</td>';
-            {% endfor %}
-            tableHtml += '</tr>';
+        tableHtml += '<tr>';
+        {% for cell in row %}
+        tableHtml += '<td>{{ cell }}</td>';
+        {% endfor %}
+        tableHtml += '</tr>';
         {% endfor %}
 
         tableHtml += '</tbody></table>';
