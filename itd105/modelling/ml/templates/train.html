@@ -72,8 +72,8 @@
         /* Making the text bold on hover */
     }
 </style>
-
-<body style="padding-top: 0% !important; margin-top: 0% !important;">
+<body style="padding-top: 0% !important; margin-top: 0% !important;"
+>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -286,7 +286,7 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">
-                                        Train form
+                                        Predict form
                                     </h6>
                                 </div>
                                 <!-- Card Body -->
@@ -294,31 +294,31 @@
                                     <div class="chart-area" style="height:100% !important;">
                                         <!-- Line Chart -->
                                         <div style="width: 100% !important;">
-                                            <form action="/model_train_class/" method="POST" class="tform">
+                                            <form action="/predict_class/" method="POST" class="tform">
                                                 {%csrf_token %}
                                                 <div class="form-group">
-                                                    <label for="max_depth" class="floating-label">Max Depth</label>
-                                                    <input type="number" name="max_depth" id="max_depth"
-                                                        placeholder="Enter a Whole Number" class="form-control"
-                                                        required>
+                                                    <label for="bi_rads" class="floating-label">BI_RADS</label>
+                                                    <input type="number" name="bi_rads" id="bi_rads" placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="min_samples_split" class="floating-label">Minimum Sample
-                                                        Split</label>
-                                                    <input type="number" name="min_samples_split" id="min_samples_split"
-                                                        placeholder="Enter a Whole Number" class="form-control"
-                                                        required>
+                                                    <label for="age" class="floating-label">Age</label>
+                                                    <input type="number" name="age" id="age" placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="min_samples_leaf" class="floating-label">Maximum Sample
-                                                        Leaf</label>
-                                                    <input type="number" name="min_samples_leaf" id="min_samples_leaf"
-                                                        placeholder="Enter a Whole Number" class="form-control"
-                                                        required>
+                                                    <label for="shape" class="floating-label">Shape</label>
+                                                    <input type="number" name="shape" id="shape" placeholder="Enter a Number" class="form-control" required>
                                                 </div>
-                                                <button type="submit" class="btn btn-theme">Train</button>
-
-
+                                                <div class="form-group">
+                                                    <label for="margin" class="floating-label">Margin</label>
+                                                     <input type="number" name="margin" id="margin" placeholder="Enter a Number" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="density" class="floating-label">Density</label>
+        <input type="number" name="density" id="density" placeholder="Enter a Number" class="form-control" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-theme">Predict</button>
+                                        
+                                         
                                             </form>
 
                                         </div>
@@ -341,7 +341,7 @@
                                 <div class="card-body">
                                     <div style="height: 100% !important; padding:0% !important;">
                                         <div>
-                                            <p>Accuracy: {{ accuracy }}</p>
+                                            <p>Prediction: {{ prediction }}</p>
                                         </div>
                                     </div>
                                 </div>
