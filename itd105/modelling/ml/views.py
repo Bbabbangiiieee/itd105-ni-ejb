@@ -44,7 +44,7 @@ def signin(request):
             auth_login(request, user)
             
             # Redirect to a success page or any other page
-            return render(request, 'landing.html')
+            return render(request, 'index.html')
         else:
             # Handle invalid login (display an error message or redirect back to the login page)
             return render(request, 'signin.html', {'error': 'Invalid login credentials'})
