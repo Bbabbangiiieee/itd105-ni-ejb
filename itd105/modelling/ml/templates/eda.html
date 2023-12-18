@@ -21,7 +21,11 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.min.css' %}" />
+     <!-- Custom styles for this template-->
+     <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.min.css' %}" />
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
 
 </head>
 
@@ -97,7 +101,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -113,7 +117,7 @@
                 </div>
             </li>
 
-        
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -138,7 +142,7 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <div class="topbar-divider d-none d-sm-block"></div>
-                            <!-- Dropdown - User Information -->  
+                        <!-- Dropdown - User Information -->
                         </li>
                     </ul>
                 </nav>
@@ -147,10 +151,10 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Classification EDA</h1>                      
+                        <h1 class="h3 mb-0 text-gray-800">Classification EDA</h1>
                     </div>
                     <!-- Content Row -->
-                   
+
                     <!-- Content Row -->
 
                     <div class="row">
@@ -189,7 +193,8 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2" style="height: 100% !important; padding:0% !important;">
+                                    <div class="chart-pie pt-4 pb-2"
+                                        style="height: 100% !important; padding:0% !important;">
                                         <div>
                                             {{ pie_chart_html|safe }}
                                         </div>
@@ -199,49 +204,48 @@
                         </div>
                     </div>
 
-                   
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">
-                                        Data Table
-                                    </h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div style="width: 100% !important;">
-                                        <div id="data-container"></div>
-                                    </div>
-                                </div>
+
+                    <!-- Pie Chart -->
+                    <div class="">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    Dataset Table
+                                </h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div style="width: 100% !important;">
+                                    <div id="data-container"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-
-
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                        </div>
-                    </div>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
 
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Content Column -->
+                <div class="col-lg-6 mb-4">
+
+
+
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                </div>
+            </div>
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -272,7 +276,7 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -290,41 +294,42 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-</body>
-</html>
+    <script>
+        $(document).ready(function ($) {
+            // Display the data in a table
+            var tableHtml = '<table id="data-table" border="1">';
+            tableHtml += '<thead><tr>';
 
-<script>
-    $(document).ready(function () {
-        // Display the data in a table
-        var tableHtml = '<table id="data-table" border="1">';
-        tableHtml += '<thead><tr>';
-
-        // Add column headers
-        {% for colName in df_head_json.columns %}
+            // Add column headers
+            {% for colName in df_head_json.columns %}
             tableHtml += '<th>{{ colName }}</th>';
-        {% endfor %}
+            {% endfor %}
 
-        tableHtml += '</tr></thead>';
-        tableHtml += '<tbody>';
+            tableHtml += '</tr></thead>';
+            tableHtml += '<tbody>';
 
-        // Add rows and data
-        {% for row in df_head_json.data %}
+            // Add rows and data
+            {% for row in df_head_json.data %}
             tableHtml += '<tr>';
             {% for cell in row %}
-                tableHtml += '<td>{{ cell }}</td>';
+            tableHtml += '<td>{{ cell }}</td>';
             {% endfor %}
             tableHtml += '</tr>';
-        {% endfor %}
+            {% endfor %}
 
-        tableHtml += '</tbody></table>';
+            tableHtml += '</tbody></table>';
 
-        // Append the table to the data-container div
-        $('#data-container').html(tableHtml);
+            // Append the table to the data-container div
+            $('#data-container').html(tableHtml);
 
-        // Initialize DataTables
-        $('#data-table').DataTable({
-            "aLengthMenu": [[10, 25, 50 - 1], [10, 25, 50, "All"]],
-            "iDisplayLength": 10
+            // Initialize DataTables
+            $('#data-table').DataTable({
+                "aLengthMenu": [[10, 25, 50 - 1], [10, 25, 50, "All"]],
+                "iDisplayLength": 10
+            });
         });
-    });
-</script>
+    </script>
+
+</body>
+
+</html>
