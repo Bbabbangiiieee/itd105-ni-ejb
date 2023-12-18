@@ -42,9 +42,46 @@ def signin(request):
         if user is not None:
             # Log in the user
             auth_login(request, user)
+            mammo_mass = Mammo_Mass.objects.all()
+            mammo_mass_data = [{'BI_RADS': obj.BI_RADS, 'Age': obj.Age, 'Shape': obj.Shape, 'Margin': obj.Margin, 'Density': obj.Density, 'Severity': obj.Severity,} for obj in mammo_mass]
+            # Create a DataFrame from the list of dictionaries
+            df = pd.DataFrame(mammo_mass_data)
+            age_counts = df['Age'].value_counts().sort_index().to_dict()
+            # Prepare data for the line chart
+            labels_line = list(age_counts.keys())
+            values_line = list(age_counts.values())
+            
+            # Create a line chart using Plotly Express with customization
+            fig_line = px.line(x=list(labels_line), y=list(values_line), title='Age Distribution of Mammographic Mass Dataset',
+                            labels={'x': 'Age Group', 'y': 'Count'},
+                            line_shape='linear',  
+                            render_mode='lines',  
+                            template='plotly_dark')  
+            
+            # Add markers to the line chart
+            fig_line.update_traces(mode='markers+lines', marker=dict(size=8, symbol='circle', line=dict(color='black', width=2)))
+
+            # Save the HTML representation of the line chart
+            line_chart_html = fig_line.to_html(full_html=False)
+
+            insurance = Insurance.objects.all()
+            insurance_data = [{'age': obj.age, 'bmi': obj.bmi, 'children': obj.children, 'sex': obj.sex, 'smoker': obj.smoker, 'region': obj.region, 'charges': obj.charges,} for obj in insurance]
+            # Create a DataFrame from the list of dictionaries
+            dataframe = pd.DataFrame(insurance_data)
+            regions = dataframe['region'].map({0: 'Southeast', 1: 'Southwest', 2: 'Northeast', 3: 'Northwest'})
+            region_counts = regions.value_counts().to_dict()
+            # Prepare data for the pie chart
+            labels_pie = list(region_counts.keys())
+            values_pie = list(region_counts.values())
+            # Create a pie chart using Plotly Express
+            fig_pie = px.pie(names=labels_pie, values=values_pie, title='Regional Distribution')
+
+            # Save the HTML representation of the pie chart
+            pie_chart_html = fig_pie.to_html(full_html=False)
             
             # Redirect to a success page or any other page
-            return render(request, 'index.html')
+            return render(request, 'index.html', {'line_chart_html': line_chart_html,
+                                                  'pie_chart_html': pie_chart_html,})
         else:
             # Handle invalid login (display an error message or redirect back to the login page)
             return render(request, 'signin.html', {'error': 'Invalid login credentials'})
@@ -54,6 +91,48 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+def index(request):
+    mammo_mass = Mammo_Mass.objects.all()
+    mammo_mass_data = [{'BI_RADS': obj.BI_RADS, 'Age': obj.Age, 'Shape': obj.Shape, 'Margin': obj.Margin, 'Density': obj.Density, 'Severity': obj.Severity,} for obj in mammo_mass]
+    # Create a DataFrame from the list of dictionaries
+    df = pd.DataFrame(mammo_mass_data)
+    age_counts = df['Age'].value_counts().sort_index().to_dict()
+    # Prepare data for the line chart
+    labels_line = list(age_counts.keys())
+    values_line = list(age_counts.values())
+    
+    # Create a line chart using Plotly Express with customization
+    fig_line = px.line(x=list(labels_line), y=list(values_line), title='Age Distribution of Mammographic Mass Dataset',
+    labels={'x': 'Age Group', 'y': 'Count'},
+    line_shape='linear',  
+    render_mode='lines',  
+    template='plotly_dark')  
+    
+    # Add markers to the line chart
+    fig_line.update_traces(mode='markers+lines', marker=dict(size=8, symbol='circle', line=dict(color='black', width=2)))
+
+    # Save the HTML representation of the line chart
+    line_chart_html = fig_line.to_html(full_html=False)
+
+    insurance = Insurance.objects.all()
+    insurance_data = [{'age': obj.age, 'bmi': obj.bmi, 'children': obj.children, 'sex': obj.sex, 'smoker': obj.smoker, 'region': obj.region, 'charges': obj.charges,} for obj in insurance]
+    # Create a DataFrame from the list of dictionaries
+    dataframe = pd.DataFrame(insurance_data)
+    regions = dataframe['region'].map({0: 'Southeast', 1: 'Southwest', 2: 'Northeast', 3: 'Northwest'})
+    region_counts = regions.value_counts().to_dict()
+    # Prepare data for the pie chart
+    labels_pie = list(region_counts.keys())
+    values_pie = list(region_counts.values())
+    # Create a pie chart using Plotly Express
+    fig_pie = px.pie(names=labels_pie, values=values_pie, title='Regional Distribution')
+
+    # Save the HTML representation of the pie chart
+    pie_chart_html = fig_pie.to_html(full_html=False)
+    
+    # Redirect to a success page or any other page
+    return render(request, 'index.html', {'line_chart_html': line_chart_html,
+                                            'pie_chart_html': pie_chart_html,})
 
 @login_required
 def eda(request):
@@ -267,7 +346,7 @@ def eda_reg(request):
         title='Smoker Counts',
         xaxis_title='Smoker Status',
         yaxis_title='Count',
-        template='plotly_dark'  # Choose a template from: https://plotly.com/python/templates/
+        template='plotly_dark'  # Choose a template from: https://plotly.c'pie_chart_html': pie_chart_html,om/python/templates/
     )
 
     bar_chart_html = fig_bar.to_html(full_html=False)
@@ -284,7 +363,7 @@ def eda_reg(request):
     # Save the HTML representation of the histogram
     histogram_html = fig_histogram.to_html(full_html=False)
     return render(request, 'eda_reg.html', {"df_head_json": json.loads(df_head_json),
-                                            'pie_chart_html': pie_chart_html,
+                                            
                                             'bar_chart_html': bar_chart_html,
                                             'histogram_html': histogram_html})
 
