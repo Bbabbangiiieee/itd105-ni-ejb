@@ -67,8 +67,7 @@
                 font-weight: bold; /* Making the text bold on hover */
             }
 </style>
-<body style="padding-top: 0% !important; margin-top: 0% !important;"
->
+<body style="padding-top: 0% !important; margin-top: 0% !important;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -213,7 +212,7 @@
                                     <div class="chart-area" style="height:100% !important;">
                                         <!-- Line Chart -->
                                         <div style="width: 100% !important;">
-                                            <form action="/model_train_class/" method="POST" class="tform">
+                                            <form action="/add_class/" method="POST" class="tform">
                                                 {%csrf_token %}
                                                 <div class="form-group">
                                                     <label for="bi_rads" class="floating-label">BI_RADS</label>

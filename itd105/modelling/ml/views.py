@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout
@@ -205,7 +206,7 @@ def add_class(request):
         )
 
         message = "Data Successfully Added"
-        return render(request, 'class_add.html', {'message': message})
+        return redirect(reverse('eda'))
 
     return render(request, 'class_add.html')
 
@@ -287,7 +288,7 @@ def predict_class(request):
         input_df = pd.DataFrame([user_input])
 
         # Define the path to the trained model
-        model_directory = 'C:\\Users\\User\\Documents\\GitHub\\itd105-ni-ejb\\itd105\\modelling'
+        model_directory = 'C:\\Users\\Acer\\Desktop\\earyl\\itd105\\modelling'
         model_filename = os.path.join(model_directory, 'model_class.joblib')
 
         # Load the trained model and label encoder

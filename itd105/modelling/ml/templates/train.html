@@ -72,8 +72,8 @@
         /* Making the text bold on hover */
     }
 </style>
-<body style="padding-top: 0% !important; margin-top: 0% !important;"
->
+
+<body style="padding-top: 0% !important; margin-top: 0% !important;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -298,27 +298,32 @@
                                                 {%csrf_token %}
                                                 <div class="form-group">
                                                     <label for="bi_rads" class="floating-label">BI_RADS</label>
-                                                    <input type="number" name="bi_rads" id="bi_rads" placeholder="Enter a Number" class="form-control" required>
+                                                    <input type="number" name="bi_rads" id="bi_rads"
+                                                        placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="age" class="floating-label">Age</label>
-                                                    <input type="number" name="age" id="age" placeholder="Enter a Number" class="form-control" required>
+                                                    <input type="number" name="age" id="age"
+                                                        placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="shape" class="floating-label">Shape</label>
-                                                    <input type="number" name="shape" id="shape" placeholder="Enter a Number" class="form-control" required>
+                                                    <input type="number" name="shape" id="shape"
+                                                        placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="margin" class="floating-label">Margin</label>
-                                                     <input type="number" name="margin" id="margin" placeholder="Enter a Number" class="form-control" required>
+                                                    <input type="number" name="margin" id="margin"
+                                                        placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="density" class="floating-label">Density</label>
-        <input type="number" name="density" id="density" placeholder="Enter a Number" class="form-control" required>
+                                                    <input type="number" name="density" id="density"
+                                                        placeholder="Enter a Number" class="form-control" required>
                                                 </div>
                                                 <button type="submit" class="btn btn-theme">Predict</button>
-                                        
-                                         
+
+
                                             </form>
 
                                         </div>
@@ -337,11 +342,14 @@
                                         Result
                                     </h6>
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div style="height: 100% !important; padding:0% !important;">
-                                        <div>
-                                            <p>Prediction: {{ prediction }}</p>
+                                <div class="card-body d-flex align-items-center justify-content-center"
+                                    style="height: 507px !important; justify-content: center !important; align-items: center !important;">
+                                    <div style="height: 100% !important; padding: 0% !important;">
+                                        <div><br><br><br><br><br><br>
+                                            <p
+                                                style="font-size: 20px; font-weight: bold; color: black; margin: auto !important; text-align: left;">
+                                               Prediction: </p>
+                                            <p style="font-size: 30px; color: black; text-align: center;"><strong>{{ prediction }}</strong></p>
                                         </div>
                                     </div>
                                 </div>
