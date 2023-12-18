@@ -249,7 +249,7 @@ def model_train_class(request):
         # Train the model
         model.fit(X_train, Y_train)
 
-        # Make predictions on the test set
+        # Make predictions on the test set / to get accuracy
         Y_pred = model.predict(X_test)
 
         # Specify the model file path
@@ -355,7 +355,7 @@ def eda_reg(request):
     # Create a histogram
     fig_histogram = px.histogram(
         x=list(charges_counts.keys()),
-        title='Age Distribution',
+        title='Charges Distribution',
         labels={'x': 'Charges', 'y': 'Frequency'},
         template='plotly_dark',
         nbins=len(charges_counts)  # Set the number of bins based on the number of unique charges
@@ -395,7 +395,7 @@ def add_reg(request):
             charges=charges
         )
         message = "Data Successfully Added"
-        return render(request, 'reg_add.html', {'message': message})
+        return redirect(reverse('eda_reg'))
 
     return render(request, 'reg_add.html')
 
@@ -444,7 +444,7 @@ def model_train_reg(request):
         Y_pred = rf_model.predict(X_test)
 
         # Specify the model file path
-        model_directory = 'C:\\Users\\User\\Documents\\GitHub\\itd105-ni-ejb\\itd105\\modelling'
+        model_directory = 'C:\\Users\\Acer\\Desktop\\earyl\\itd105\\modelling'
         os.makedirs(model_directory, exist_ok=True)  # Create the directory if it doesn't exist
         model_filename = os.path.join(model_directory, 'model_reg.joblib')
 
@@ -478,7 +478,7 @@ def predict_reg(request):
         input_df = pd.DataFrame([user_input])
 
         # Define the path to the trained model
-        model_directory = 'C:\\Users\\User\\Documents\\GitHub\\itd105-ni-ejb\\itd105\\modelling'
+        model_directory = 'C:\\Users\\Acer\\Desktop\\earyl\\itd105\\modelling'
         model_filename = os.path.join(model_directory, 'model_reg.joblib')
 
         # Load the trained model and label encoder
