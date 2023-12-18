@@ -1,46 +1,333 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'train_reg' %}">Train</a>
-    <a href="{% url 'eda_reg' %}">EDA Regression</a>
-    <a href="{% url 'reg_add' %}">Add Data</a>
-    <a href="{% url 'signout' %}">Logout</a>
-    <form action="/add_reg/" method="POST" class="tform">
-        {%csrf_token %}
 
-        <label for="age" class="floating-label">Age</label>
-        <input type="number" name="age" id="age" placeholder="Enter a Number" required>
-        <label for="sex" class="floating-label">Sex</label>
-        <select type="number" name="sex" id="sex" placeholder="Select Sex" required>
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-        </select>
-        <label for="bmi" class="floating-label">BMI</label>
-        <input type="number" step="any" name="bmi" id="bmi" placeholder="Enter a Number" required>
-        <label for="children" class="floating-label">Children</label>
-        <input type="number" name="children" id="children" placeholder="Enter a Number" required>
-        <label for="smoker" class="floating-label">Smoker</label>
-        <select type="number" name="smoker" id="smoker"required>
-            <option>Are you a Smoker?</option>
-            <option value="0">Yes</option>
-            <option value="1">No</option>
-        </select>
-        <label for="region" class="floating-label">Region</label>
-        <select type="number" step="any" name="region" id="region"required>
-            <option>Select Region</option>
-            <option value="0">Southeast</option>
-            <option value="1">Southwest</option>
-            <option value="2">Northeast</option>
-            <option value="3">Northwest</option>
-        </select>
-        <label for="charges" class="floating-label">Charges</label>
-        <input type="number" step="any" name="charges" id="charges" placeholder="Enter a Number" required>
-        <button class="submit btn-eda">Submit</button>
-    </form>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Classification Train and Predict</title>
+
+    <!-- Custom fonts for this template-->
+    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.min.css' %}" />
+
+</head>
+<style>
+    body{
+        margin-top:20px;
+        background: #f6f9fc;
+        }
+        .account-block .overlay {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            }
+            .account-block .account-testimonial {
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+            }
+            
+            .text-theme {
+            color: #5369f8 !important;
+            }
+            
+            .btn-theme {
+            background-color: #5369f8;
+            border-color: #5369f8;
+            color: #fff;
+            }
+
+            .btn-theme:hover {
+                background-color: #3cb371; /* Green color on hover */
+                color: #fff; /* Text color on hover */
+                font-weight: bold; /* Making the text bold on hover */
+            }
+</style>
+<body style="padding-top: 0% !important; margin-top: 0% !important;"
+>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ITD105</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Classification</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Mammographic Mass</h6>
+                        <a class="collapse-item" href="{% url 'eda' %}">Exploratory Data Analysis</a>
+                        <a class="collapse-item" href="{% url 'class_add' %}">Add Data</a>
+                        <a class="collapse-item" href="{% url 'train_class' %}">Train and Predict</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Regression</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Medical Cost</h6>
+                        <a class="collapse-item" href="{% url 'eda_reg' %}">Exploratory Data Analysis</a>
+                        <a class="collapse-item" href="{% url 'reg_add' %}">Add Data</a>
+                        <a class="collapse-item" href="{% url 'train_reg' %}">Train and Predict</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-logout"></i>
+                    <span>Account</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Account Actions:</h6>
+                        <a class="collapse-item" href="{% url 'signout' %}">Logout</a>
+                    </div>
+                </div>
+            </li>
+
+        
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                            <!-- Dropdown - User Information -->  
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Add Data to Regression</h1>                      
+                    </div>
+                    <!-- Content Row -->
+                   
+                    <!-- Content Row -->
+
+                    <div class="">
+
+                        <!-- Area Chart -->
+                        <div class="">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Add form
+                                    </h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area" style="height:100% !important;">
+                                        <!-- Line Chart -->
+                                        <div style="width: 100% !important;">
+                                            <form action="/add_reg/" method="POST" class="tform">
+                                                {%csrf_token %}
+                                                <div class="form-group">
+                                                    <label for="age" class="floating-label">Age</label>
+                                                     <input type="number" name="age" id="age" placeholder="Enter a Number" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sex" class="floating-label">Sex</label>
+                                                    <select type="number" name="sex" id="sex" placeholder="Select Sex" class="form-control" required>
+                                                     <option value="0">Male</option>
+                                                    <option value="1">Female</option>
+                                                     </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="bmi" class="floating-label">BMI</label>
+                                                        <input type="number" step="any" name="bmi" id="bmi" placeholder="Enter a Number" class="form-control" required>
+                                                    </div>
+                                                        <div class="form-group">
+                                                            <label for="children" class="floating-label">Children</label>
+                                                            <input type="number" name="children" id="children" placeholder="Enter a Number" class="form-control" required>
+                                                            </div>
+                                                <div class="form-group">
+                                                    <label for="smoker" class="floating-label">Smoker</label>
+                                                    <select type="number" name="smoker" id="smoker"  class="form-control"required>
+                                                        <option>Are you a Smoker?</option>
+                                                        <option value="0">Yes</option>
+                                                        <option value="1">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="region" class="floating-label">Region</label>
+                                                    <select type="number" step="any" name="region" id="region" class="form-control" required>
+                                                        <option>Select Region</option>
+                                                        <option value="0">Southeast</option>
+                                                        <option value="1">Southwest</option>
+                                                        <option value="2">Northeast</option>
+                                                        <option value="3">Northwest</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="charges" class="floating-label">Charges</label>
+                                                    <input type="number" step="any" name="charges" id="charges" placeholder="Enter a Number"  class="form-control" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-theme">Add</button>                                 
+                                            </form>                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              
+                    </div> 
+                    <div class="row">
+                    </div>  
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
 </body>
 </html>
+
