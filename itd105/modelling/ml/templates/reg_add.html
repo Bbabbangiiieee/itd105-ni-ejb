@@ -1,7 +1,10 @@
 {% load static %}
 
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
 
@@ -11,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Regression - Add Data</title>
+    <title>Classification Train and Predict</title>
 
     <!-- Custom fonts for this template-->
     <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
@@ -22,14 +25,53 @@
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
-
 
 </head>
+<style>
+    body{
+        margin-top:20px;
+        background: #f6f9fc;
+        }
+        .account-block .overlay {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            }
+            .account-block .account-testimonial {
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+            bottom: 3rem;
+            left: 0;
+            right: 0;
+            }
+            
+            .text-theme {
+            color: #5369f8 !important;
+            }
+            
+            .btn-theme {
+            background-color: #5369f8;
+            border-color: #5369f8;
+            color: #fff;
+            }
 
-<body id="page-top">
+            .btn-theme:hover {
+                background-color: #3cb371; /* Green color on hover */
+                color: #fff; /* Text color on hover */
+                font-weight: bold; /* Making the text bold on hover */
+            }
+</style>
+<body style="padding-top: 0% !important; margin-top: 0% !important;"
+>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -101,7 +143,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -117,7 +159,7 @@
                 </div>
             </li>
 
-
+        
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -142,7 +184,7 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        <!-- Dropdown - User Information -->
+                            <!-- Dropdown - User Information -->  
                         </li>
                     </ul>
                 </nav>
@@ -151,38 +193,88 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Regression Add Data</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Add Data to Regression</h1>                      
                     </div>
+                    <!-- Content Row -->
+                   
+                    <!-- Content Row -->
+
+                    <div class="">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7" style="width: 100% !important;">
+                        <div class="">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Histogram</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Add form
+                                    </h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area" style="height:100% !important;">
                                         <!-- Line Chart -->
                                         <div style="width: 100% !important;">
-                                            {{ histogram_html|safe }}
+                                            <form action="/add_reg/" method="POST" class="tform">
+                                                {%csrf_token %}
+                                                <div class="form-group">
+                                                    <label for="age" class="floating-label">Age</label>
+                                                     <input type="number" name="age" id="age" placeholder="Enter a Number" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sex" class="floating-label">Sex</label>
+                                                    <select type="number" name="sex" id="sex" placeholder="Select Sex" class="form-control" required>
+                                                     <option value="0">Male</option>
+                                                    <option value="1">Female</option>
+                                                     </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="bmi" class="floating-label">BMI</label>
+                                                        <input type="number" step="any" name="bmi" id="bmi" placeholder="Enter a Number" class="form-control" required>
+                                                    </div>
+                                                        <div class="form-group">
+                                                            <label for="children" class="floating-label">Children</label>
+                                                            <input type="number" name="children" id="children" placeholder="Enter a Number" class="form-control" required>
+                                                            </div>
+                                                <div class="form-group">
+                                                    <label for="smoker" class="floating-label">Smoker</label>
+                                                    <select type="number" name="smoker" id="smoker"  class="form-control"required>
+                                                        <option>Are you a Smoker?</option>
+                                                        <option value="0">Yes</option>
+                                                        <option value="1">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="region" class="floating-label">Region</label>
+                                                    <select type="number" step="any" name="region" id="region" class="form-control" required>
+                                                        <option>Select Region</option>
+                                                        <option value="0">Southeast</option>
+                                                        <option value="1">Southwest</option>
+                                                        <option value="2">Northeast</option>
+                                                        <option value="3">Northwest</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="charges" class="floating-label">Charges</label>
+                                                    <input type="number" step="any" name="charges" id="charges" placeholder="Enter a Number"  class="form-control" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-theme">Add</button>                                 
+                                            </form>                                          
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>              
+                    </div> 
+                    <div class="row">
+                    </div>  
+                    </div>
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
-
-
-
                         </div>
-
                         <div class="col-lg-6 mb-4">
                         </div>
                     </div>
@@ -224,8 +316,6 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -241,42 +331,7 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-    <script>
-        $(document).ready(function ($) {
-            // Display the data in a table
-            var tableHtml = '<table id="data-table" border="1">';
-            tableHtml += '<thead><tr>';
-
-            // Add column headers
-            {% for colName in df_head_json.columns %}
-            tableHtml += '<th>{{ colName }}</th>';
-            {% endfor %}
-
-            tableHtml += '</tr></thead>';
-            tableHtml += '<tbody>';
-
-            // Add rows and data
-            {% for row in df_head_json.data %}
-            tableHtml += '<tr>';
-            {% for cell in row %}
-            tableHtml += '<td>{{ cell }}</td>';
-            {% endfor %}
-            tableHtml += '</tr>';
-            {% endfor %}
-
-            tableHtml += '</tbody></table>';
-
-            // Append the table to the data-container div
-            $('#data-container').html(tableHtml);
-
-            // Initialize DataTables
-            $('#data-table').DataTable({
-                "aLengthMenu": [[10, 25, 50 - 1], [10, 25, 50, "All"]],
-                "iDisplayLength": 10
-            });
-        });
-    </script>
-
 </body>
 
 </html>
+
