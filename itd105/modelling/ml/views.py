@@ -363,7 +363,7 @@ def eda_reg(request):
     # Save the HTML representation of the histogram
     histogram_html = fig_histogram.to_html(full_html=False)
     return render(request, 'eda_reg.html', {"df_head_json": json.loads(df_head_json),
-                                            
+                                            'pie_chart_html': pie_chart_html,
                                             'bar_chart_html': bar_chart_html,
                                             'histogram_html': histogram_html})
 
